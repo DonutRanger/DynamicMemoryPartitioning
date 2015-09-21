@@ -41,13 +41,17 @@ public class MemoryRequestGenerator {
 
     public MemoryBlock createBlock() {
 
-        int blockSize, requestedTime, randomMemoryValue;
+        int requestedTime, blockSize, randomInteger;
         boolean occupied = false;
-
-        int memoryRequest = random.nextInt(maxSize) * 5 + minSize;
+                
+        //rand.nextInt() will always be requestedMem < maxBlockSize, give or take < 5
+        randomInteger = random.nextInt( (maxSize - minSize) / 5);
+        blockSize =  randomInteger * 5 + minSize;
+        
+        //random Time from intervals
         requestedTime = random.nextInt(randInt(minTime, maxTime));
         
-        MemoryBlock memBlock = new MemoryBlock(memoryRequest, requestedTime, occupied);
+        MemoryBlock memBlock = new MemoryBlock(blockSize, requestedTime, occupied);
         return memBlock;
     }
 
@@ -149,6 +153,9 @@ public class MemoryRequestGenerator {
         multiplier = aMultiplier;
     }
 
+    /*
+     * Creates random number between two Integers
+    */
     public int randInt(int min, int max) {
 
         // nextInt is normally exclusive of the top value,
