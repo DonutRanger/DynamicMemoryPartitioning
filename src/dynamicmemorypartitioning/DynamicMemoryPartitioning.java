@@ -25,7 +25,7 @@ public class DynamicMemoryPartitioning {
     public static void main(String[] args) {
         
         DynamicMemoryPartitioning d = new DynamicMemoryPartitioning();
-        d.requestInput();
+        d.requestInput(args);
         
     }
 
@@ -155,27 +155,21 @@ public class DynamicMemoryPartitioning {
         seed = aSeed;
     }
     
-    public void requestInput(){
+    public void requestInput(String[] args){
             
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Size of Main Memory");
-        setMainMemSize(scanner.nextInt());
-        System.out.println("Total Simulation Time");
-        setTotalSimTime(scanner.nextInt());
-        System.out.println("Min inter-arrival time for new requests");
-        setMinArrivalTime(scanner.nextInt());
-        System.out.println("Max inter-arrival time for new requests");
-        setMaxArrivalTime(scanner.nextInt());
-        System.out.println("Min memory block request size");
-        setMinMemSize(scanner.nextInt());
-        System.out.println("Max memory block request size");
-        setMaxMemSize(scanner.nextInt());
-        System.out.println("Min use time for memory block");
-        setMinUseTime(scanner.nextInt());
-        System.out.println("Max use time for memory block");
-        setMaxUseTime(scanner.nextInt());
-        System.out.println("Random number generator for seed");
-        setSeed(scanner.nextInt());
+        setMainMemSize(Integer.parseInt(args[0]));
+        setTotalSimTime(Integer.parseInt(args[1]));
+        setMinArrivalTime(Integer.parseInt(args[2]));
+        setMaxArrivalTime(Integer.parseInt(args[3]));
+        setMinMemSize(Integer.parseInt(args[4]));
+        setMaxMemSize(Integer.parseInt(args[5]));
+        setMinUseTime(Integer.parseInt(args[6]));
+        setMaxUseTime(Integer.parseInt(args[7]));
+        //setSeed(Integer.parseInt(args[0]));
+        
+        for(int i = 0; i < args.length; i++){
+            System.out.println(args[i]);
+        }
     }
     
 }
