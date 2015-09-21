@@ -50,7 +50,7 @@ public class MemoryRequestGenerator {
         blockSize = randomInteger * 5 + minSize;
 
         //random Time from intervals
-        requestedTime = random.nextInt(randInt(minTime, maxTime));
+        requestedTime = random.nextInt(randInt(this.minTime,this.maxTime));
 
         MemoryBlock memBlock = new MemoryBlock(blockSize, requestedTime, occupied);
         return memBlock;
