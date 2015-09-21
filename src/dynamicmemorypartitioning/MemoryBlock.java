@@ -13,12 +13,12 @@ package dynamicmemorypartitioning;
  * @author Pablo
  */
 public class MemoryBlock {
-    
+
     private int blockSize;
     private int requestedTime;
     private boolean occupied;
-    
-    public MemoryBlock(int blockSize, int requestedTime, boolean occupied){
+
+    public MemoryBlock(int blockSize, int requestedTime, boolean occupied) {
         this.blockSize = blockSize;
         this.requestedTime = requestedTime;
         this.occupied = occupied;
@@ -65,5 +65,5 @@ public class MemoryBlock {
     public void setOccupied(boolean occupied) {
         this.occupied = occupied;
     }
-    
+
 }

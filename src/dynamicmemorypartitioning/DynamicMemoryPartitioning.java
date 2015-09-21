@@ -15,18 +15,18 @@ import java.util.Scanner;
  * @author Pablo
  */
 public class DynamicMemoryPartitioning {
-    
-    private static int mainMemSize, totalSimTime, minArrivalTime, maxArrivalTime, 
-                minMemSize, maxMemSize, minUseTime, maxUseTime, seed;
+
+    private static int mainMemSize, totalSimTime, minArrivalTime, maxArrivalTime,
+            minMemSize, maxMemSize, minUseTime, maxUseTime, seed;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
         DynamicMemoryPartitioning d = new DynamicMemoryPartitioning();
         d.requestInput(args);
-        
+
     }
 
     /**
@@ -154,9 +154,9 @@ public class DynamicMemoryPartitioning {
     public static void setSeed(int aSeed) {
         seed = aSeed;
     }
-    
-    public void requestInput(String[] args){
-            
+
+    public void requestInput(String[] args) {
+
         setMainMemSize(Integer.parseInt(args[0]));
         setTotalSimTime(Integer.parseInt(args[1]));
         setMinArrivalTime(Integer.parseInt(args[2]));
@@ -166,10 +166,10 @@ public class DynamicMemoryPartitioning {
         setMinUseTime(Integer.parseInt(args[6]));
         setMaxUseTime(Integer.parseInt(args[7]));
         //setSeed(Integer.parseInt(args[0]));
-        
-        for(int i = 0; i < args.length; i++){
+
+        for (int i = 0; i < args.length; i++) {
             System.out.println(args[i]);
         }
     }
-    
+
 }
