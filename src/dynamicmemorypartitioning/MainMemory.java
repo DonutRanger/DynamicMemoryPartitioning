@@ -29,40 +29,15 @@ public class MainMemory {
     private int nextLocation = 0; //used for NextFit allocation
 
     public MainMemory(int size) {
+
+        //Main memory represented as MemBlock with MAX_VALUE integer time
         MemoryBlock block = new MemoryBlock(size, Integer.MAX_VALUE, false);
         list.add(block);
     }
 
-    /**
-     * @return the size
-     */
-    public int getSize() {
-        return size;
-    }
-
-    /**
-     * @param size the size to set
-     */
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    /**
-     * @return the list
-     */
-    public LinkedList getList() {
-        return list;
-    }
-
-    /**
-     * @param list the list to set
-     */
-    public void setList(LinkedList list) {
-        this.list = list;
-    }
-
     public void addBlockFirstFit(MemoryBlock block) {
 
+        outerLoop:
         for (int i = nextLocation; i < list.size(); i++) {
             if (queue.isEmpty()) {
                 if (!list.get(i).isOccupied() && (list.get(i).getBlockSize() > block.getBlockSize())) {
@@ -71,6 +46,7 @@ public class MainMemory {
                             false);
                     list.add(i, block);
                     list.set(i + 1, remainingBlock);
+                    break outerLoop;
                 }
             } else {
                 queue.add(block);
@@ -117,15 +93,19 @@ public class MainMemory {
                 }
             }
         }
-
     }
 
     public void addBlockBestFit(MemoryBlock block) {
 
+        //checks if fits in any memory slot. If not, put in queue
         if (checkFit(block)) {
+
+            //if queue is empty, put into list, else add to queue
             if (queue.isEmpty()) {
                 int difference = Integer.MAX_VALUE;
                 int location = -1;
+
+                //checks best fit location. Sets location to location.
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).isOccupied() == false) {
                         int localDiff = list.get(i).getBlockSize() - block.getBlockSize();
@@ -135,6 +115,8 @@ public class MainMemory {
                         }
                     }
                 }
+
+                //Creates new remaining Mem, allocates MemBlock according to location.
                 MemoryBlock remainingBlock = new MemoryBlock(list.get(location).getBlockSize() - block.getBlockSize(),
                         list.get(location).getRequestedTime(),
                         false);
@@ -149,6 +131,10 @@ public class MainMemory {
 
     }
 
+    /*
+     * Checks if MemBlock fits in Memory. Used in Fit Algorithms.
+     * If doesnt, put block into Queue.
+     */
     public boolean checkFit(MemoryBlock block) {
         boolean fit = false;
         for (int i = 0; i < list.size(); i++) {
@@ -158,6 +144,34 @@ public class MainMemory {
             }
         }
         return fit;
+    }
+
+    /**
+     * @return the size
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * @param size the size to set
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    /**
+     * @return the list
+     */
+    public LinkedList getList() {
+        return list;
+    }
+
+    /**
+     * @param list the list to set
+     */
+    public void setList(LinkedList list) {
+        this.list = list;
     }
 
 }

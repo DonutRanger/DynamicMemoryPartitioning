@@ -27,6 +27,39 @@ public class DynamicMemoryPartitioning {
         DynamicMemoryPartitioning d = new DynamicMemoryPartitioning();
         d.requestInput(args);
 
+        MainMemory mainMemory = new MainMemory(mainMemSize);
+        MemoryRequestGenerator generator = new MemoryRequestGenerator(
+                minMemSize, maxMemSize,
+                minUseTime, maxUseTime
+        );
+
+        //for testing, used by Henry
+        MemoryRequestGenerator generatorSeed = new MemoryRequestGenerator(
+                minMemSize, maxMemSize,
+                minUseTime, maxUseTime,
+                seed
+        );
+        /*
+         Henry Sample Output
+         =======================
+         ::First Fit::
+         Throughput: 31
+         Wait Time: 0.09375 time unit(s)
+
+         ::Best Fit::
+         Throughput: 31
+         Wait Time: 0.3125 time unit(s)
+
+         ::Next Fit::
+         Throughput: 31
+         Wait Time: 0.0625 time unit(s)
+         */
+
+        mainMemory.addBlockFirstFit(generator.createBlock());
+        mainMemory.addBlockFirstFit(generator.createBlock());
+        mainMemory.addBlockFirstFit(generator.createBlock());
+        System.out.println("Progress so Far");
+
     }
 
     /**
