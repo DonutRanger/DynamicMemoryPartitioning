@@ -41,8 +41,9 @@ public class MemoryRequestGenerator {
 
     public MemoryBlock createBlock() {
 
-        int requestedTime, blockSize, randomInteger;
-        boolean occupied = false;
+        int requestedTime, blockSize;
+        int randomInteger; //used for memSize Multiplier
+        boolean occupied = true;
 
         //rand.nextInt() will always be requestedMem < maxBlockSize, give or take < 5
         randomInteger = random.nextInt((maxSize - minSize) / 5);
