@@ -9,7 +9,6 @@
 package dynamicmemorypartitioning;
 
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  *
@@ -26,18 +25,10 @@ public class DynamicMemoryPartitioning {
      */
     public static void main(String[] args) {
 
-        int throughPut = 0;
-
         DynamicMemoryPartitioning d = new DynamicMemoryPartitioning();
         d.requestInput(args);
 
         MainMemory mainMemory = new MainMemory(mainMemSize);
-//        MemoryRequestGenerator generator = new MemoryRequestGenerator(
-//                minMemSize, maxMemSize,
-//                minUseTime, maxUseTime
-//        );
-
-        //for testing, used by Henry
         MemoryRequestGenerator generatorSeed = new MemoryRequestGenerator(
                 minMemSize, maxMemSize,
                 minUseTime, maxUseTime,
@@ -46,14 +37,16 @@ public class DynamicMemoryPartitioning {
         random = new Random(seed);
 
         int interArrivalTime = randInt(minArrivalTime, maxArrivalTime);
-        int queueTime = 0; int blocksAdded = 0;
+        int throughPut = 0;
+        int queueTime = 0;
+        int blocksAdded = 0;
         while (totalSimTime > 0) {
             if (!mainMemory.getQueue().isEmpty()) {
                 queueTime++;
             }
             if (interArrivalTime <= 0) {
                 MemoryBlock memBlock = generatorSeed.createBlock();
-                mainMemory.addBlockBestFit(memBlock);
+                mainMemory.addBlockFirstFit(memBlock);
                 blocksAdded++;
                 interArrivalTime = randInt(minArrivalTime, maxArrivalTime);
             }
@@ -65,8 +58,8 @@ public class DynamicMemoryPartitioning {
         }
 
         System.out.println("Throughput: " + throughPut);
-        System.out.println("Average Wait Time: " + (queueTime / (blocksAdded * 1.0)) );
-        
+        System.out.println("Average Wait Time: " + (queueTime / (blocksAdded * 1.0)));
+
     }
 
     /*
@@ -218,9 +211,6 @@ public class DynamicMemoryPartitioning {
         setMaxUseTime(Integer.parseInt(args[7]));
         setSeed(Integer.parseInt(args[8]));
 
-//        for (int i = 0; i < args.length; i++) {
-//            System.out.println(args[i]);
-//        }
     }
 
 }
