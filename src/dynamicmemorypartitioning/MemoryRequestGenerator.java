@@ -35,8 +35,8 @@ public class MemoryRequestGenerator {
         this.maxSize = maxSize;
         this.minTime = minTime;
         this.maxTime = maxTime;
-        this.seed = seed;
         this.random = new Random(seed);
+        this.seed = seed;
     }
 
     public MemoryBlock createBlock() {
@@ -50,10 +50,22 @@ public class MemoryRequestGenerator {
         blockSize = randomInteger * 5 + minSize;
 
         //random Time from intervals
-        requestedTime = random.nextInt(randInt(this.minTime,this.maxTime));
+        requestedTime = randInt(this.minTime, this.maxTime);
 
+        //System.out.println(requestedTime);
         MemoryBlock memBlock = new MemoryBlock(blockSize, requestedTime, occupied);
         return memBlock;
+    }
+
+    /*
+     * Creates random number between two Integers
+     */
+    public int randInt(int min, int max) {
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = random.nextInt((max - min) + 1) + min;
+        return randomNum;
     }
 
     /**
@@ -152,17 +164,6 @@ public class MemoryRequestGenerator {
      */
     public static void setMultiplier(int aMultiplier) {
         multiplier = aMultiplier;
-    }
-
-    /*
-     * Creates random number between two Integers
-     */
-    public int randInt(int min, int max) {
-
-        // nextInt is normally exclusive of the top value,
-        // so add 1 to make it inclusive
-        int randomNum = random.nextInt((max - min) + 1) + min;
-        return randomNum;
     }
 
 }
