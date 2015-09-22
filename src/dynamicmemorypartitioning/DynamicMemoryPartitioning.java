@@ -8,6 +8,7 @@
  */
 package dynamicmemorypartitioning;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -18,20 +19,23 @@ public class DynamicMemoryPartitioning {
 
     private static int mainMemSize, totalSimTime, minArrivalTime, maxArrivalTime,
             minMemSize, maxMemSize, minUseTime, maxUseTime, seed;
+    private static Random random;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
+        int throughPut = 0;
+
         DynamicMemoryPartitioning d = new DynamicMemoryPartitioning();
         d.requestInput(args);
 
         MainMemory mainMemory = new MainMemory(mainMemSize);
-        MemoryRequestGenerator generator = new MemoryRequestGenerator(
-                minMemSize, maxMemSize,
-                minUseTime, maxUseTime
-        );
+//        MemoryRequestGenerator generator = new MemoryRequestGenerator(
+//                minMemSize, maxMemSize,
+//                minUseTime, maxUseTime
+//        );
 
         //for testing, used by Henry
         MemoryRequestGenerator generatorSeed = new MemoryRequestGenerator(
@@ -39,27 +43,41 @@ public class DynamicMemoryPartitioning {
                 minUseTime, maxUseTime,
                 seed
         );
-        /*
-         Henry Sample Output
-         =======================
-         ::First Fit::
-         Throughput: 31
-         Wait Time: 0.09375 time unit(s)
+        random = new Random(seed);
 
-         ::Best Fit::
-         Throughput: 31
-         Wait Time: 0.3125 time unit(s)
+        int interArrivalTime = randInt(minArrivalTime, maxArrivalTime);
+        int queueTime = 0; int blocksAdded = 0;
+        while (totalSimTime > 0) {
+            if (!mainMemory.getQueue().isEmpty()) {
+                queueTime++;
+            }
+            if (interArrivalTime <= 0) {
+                MemoryBlock memBlock = generatorSeed.createBlock();
+                mainMemory.addBlockBestFit(memBlock);
+                blocksAdded++;
+                interArrivalTime = randInt(minArrivalTime, maxArrivalTime);
+            }
 
-         ::Next Fit::
-         Throughput: 31
-         Wait Time: 0.0625 time unit(s)
-         */
+            interArrivalTime--;
+            totalSimTime--;
+            int throughput = mainMemory.unAllocate();
+            throughPut += throughput;
+        }
 
-        mainMemory.addBlockFirstFit(generator.createBlock());
-        mainMemory.addBlockFirstFit(generator.createBlock());
-        mainMemory.addBlockFirstFit(generator.createBlock());
-        System.out.println("Progress so Far");
+        System.out.println("Throughput: " + throughPut);
+        System.out.println("Average Wait Time: " + (queueTime / (blocksAdded * 1.0)) );
+        
+    }
 
+    /*
+     * Creates random number between two Integers
+     */
+    public static int randInt(int min, int max) {
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = random.nextInt((max - min) + 1) + min;
+        return randomNum;
     }
 
     /**
@@ -198,11 +216,11 @@ public class DynamicMemoryPartitioning {
         setMaxMemSize(Integer.parseInt(args[5]));
         setMinUseTime(Integer.parseInt(args[6]));
         setMaxUseTime(Integer.parseInt(args[7]));
-        //setSeed(Integer.parseInt(args[0]));
+        setSeed(Integer.parseInt(args[8]));
 
-        for (int i = 0; i < args.length; i++) {
-            System.out.println(args[i]);
-        }
+//        for (int i = 0; i < args.length; i++) {
+//            System.out.println(args[i]);
+//        }
     }
 
 }
