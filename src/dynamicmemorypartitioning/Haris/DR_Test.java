@@ -21,6 +21,9 @@ public class DR_Test {
     LinkedList<Integer> test = new LinkedList();
     static ArrayList<String> loadArray = new ArrayList(); 
     String readTxtFile;
+    
+    
+    MemoryPar load = new MemoryPar();
         
     
     //
@@ -68,17 +71,22 @@ public class DR_Test {
             }
             
             String dummy;
-            for(int n = 0; n < 4; n++){
+            for(int n = 1; n < loadArray.size(); n++){
                 dummy = loadArray.get(n);
+                Integer[] arry = new Integer[loadArray.size()];
                 //String[] arr = new String[loadArray.size()];
                 //dummy = arr.split(" ")
                 List<String>  arr = new ArrayList<String>(Arrays.asList(dummy.split("[\\s]")));
                 //Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
                 //**** index & parse problem ****//
-                Job.add(new MemoryPar(Integer.parseInt((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4)))));
+                //getJobNum() = Integer.parseInt(arr.get(1));
+                arry[i] = Integer.parseInt(arr.get(i));
+                load.setArrivalTime(arry[i]);
                 
                 
+                Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
                 
+               
                 /*List<String> testLoad = new ArrayList<String>(Arrays.asList(dummy.split("[\\s]")));
                 for(int m = 0; m < loadArray.size();m++){
                     Job.add(new MemoryPar(Integer.parseInt((loadArray.get(m)), (loadArray.get(m+1)), (loadArray.get(m+2)), (loadArray.get(m+3)))));
