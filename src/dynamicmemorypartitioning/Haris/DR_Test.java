@@ -42,7 +42,7 @@ public class DR_Test {
             int i = 0;
             reader = new BufferedReader(new FileReader("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
             while((readTxtFile = reader.readLine())!= null){
-            
+            i++;
             loadArray.add(readTxtFile);    
             
             //Scanner reader = new Scanner(new File("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/textTest.txt"));
@@ -69,6 +69,8 @@ public class DR_Test {
                
                 //jobArray.add(readString);
             }
+            System.out.println(i);
+            int nJobs = Integer.parseInt(loadArray.get(0));
             
             String dummy;
             for(int n = 1; n < loadArray.size(); n++){
@@ -76,15 +78,16 @@ public class DR_Test {
                 Integer[] arry = new Integer[loadArray.size()];
                 //String[] arr = new String[loadArray.size()];
                 //dummy = arr.split(" ")
-                List<String>  arr = new ArrayList<String>(Arrays.asList(dummy.split("[\\s]")));
+                List<String>  arr = new ArrayList<>(Arrays.asList(dummy.split("[\\s]")));
                 //Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
                 //**** index & parse problem ****//
                 //getJobNum() = Integer.parseInt(arr.get(1));
-                arry[i] = Integer.parseInt(arr.get(i));
-                load.setArrivalTime(arry[i]);
+                arry[n] = Integer.parseInt(arr.get(n));
+                load.setJobNum(arry[n]);
+                //load.setArrivalTime(arry[n+2]);
+                //System.out.print(arry[n] + "\n");
                 
-                
-                Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
+                //Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
                 
                
                 /*List<String> testLoad = new ArrayList<String>(Arrays.asList(dummy.split("[\\s]")));
