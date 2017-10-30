@@ -21,8 +21,7 @@ public class DR_Test {
     LinkedList<Integer> test = new LinkedList();
     static ArrayList<String> loadArray = new ArrayList(); 
     String readTxtFile;
-    
-    
+   
     MemoryPar load = new MemoryPar();
         
     
@@ -35,31 +34,48 @@ public class DR_Test {
         testRun.readJob();
         testRun.loadJobs();
     }
+    public static void skipLines(Scanner s,int lineNum){
+        for(int i = 0; i < lineNum;i++){
+            if(s.hasNextLine())s.nextLine();
+        }
+    }
     
     public void readJob() throws IOException {
-        BufferedReader reader = null;
+        //BufferedReader reader = null;
         try{
             int i = 0;
-            reader = new BufferedReader(new FileReader("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
-            while((readTxtFile = reader.readLine())!= null){
-            i++;
-            loadArray.add(readTxtFile);    
+            //reader = new BufferedReader(new FileReader("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
+            //while((readTxtFile = reader.readLine())!= null){
+            /*i++;
+            List<String> loadText = new ArrayList<String>(Arrays.asList(readTxtFile.split("[\\s\\n]")));
+            Job.setJobNum(Integer.parseInt(loadText.get(1)));*/
             
-            //Scanner reader = new Scanner(new File("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/textTest.txt"));
+            
+            //loadArray.add(readTxtFile);    
+            int temp1, temp2, temp3, temp4;
+            Scanner reader = new Scanner(new File("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
             //int testvar = reader;
             //List<String> loadText = new ArrayList<String>(Arrays.asList(readTextFile.split("[\\s\\n]")));
-            
-            
-            /*while(reader.hasNext()){
+            while(reader.hasNextLine()){
+                skipLines(reader, 1);
                 //i++;
                 //Job.insert((MemoryPar)reader);
                 if(reader.hasNextInt()){
-                    //Job.add((MemoryPar)getJobNum());
+                    temp1 = reader.nextInt();
+                    temp2 = reader.nextInt();
+                    temp3 = reader.nextInt();
+                    temp4 = reader.nextInt();
+                    System.out.print(temp1 + " ");
+                    System.out.print(temp2 + " ");
+                    System.out.print(temp3 + " ");
+                    System.out.print(temp4 + "\n");
+                    
+                    Job.add(new MemoryPar(temp1,temp2, temp3, temp4));
                     //test.add(reader);
                     //Job.add((mgetArrivalTime());
                     //Job.ProcessTime();
                     //Job.getBlockSize();
-                }*/
+                }
                 
                 //List<String> readTest = new ArrayList<String>(Arrays.asList(readString.split("[\\s\\n]")));
                 
@@ -69,26 +85,50 @@ public class DR_Test {
                
                 //jobArray.add(readString);
             }
-            System.out.println(i);
-            int nJobs = Integer.parseInt(loadArray.get(0));
+            //System.out.println(i);
+            //int nJobs = Integer.parseInt(loadArray.get(0));
             
             String dummy;
             for(int n = 1; n < loadArray.size(); n++){
                 dummy = loadArray.get(n);
-                Integer[] arry = new Integer[loadArray.size()];
+                //System.out.println(loadArray.size());
+                String[] arry = new String[loadArray.size()];
                 //String[] arr = new String[loadArray.size()];
+                arry = dummy.split(" ");
+                int v = Integer.parseInt(arry[1]);
+                System.out.println(v);
                 //dummy = arr.split(" ")
-                List<String>  arr = new ArrayList<>(Arrays.asList(dummy.split("[\\s]")));
-                //Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
+                //List<String>  arr = new ArrayList<>(Arrays.asList(dummy.split("[\\s\\n]")));
+                
+                //System.out.println(loadArray.isEmpty());
+                System.out.println(Arrays.toString(arry));
+                
+                //System.out.println(arry[n]); //+ " " + arry[n+1] + " " + arry[n+2] + " " + arry[n+3]);
+                //Job.add(new MemoryPar(Integer.parseInt(arry[1]),(arry[2]),(arry[3]), (arry[0])));
+                /*for(int m = 0; m < 4; m++)
+                {
+                    System.out.println(arr.get);
+                }*/
+                
+                
+                //System.out.println(arr.get(1));
+                //System.out.println(arr.get(2));
                 //**** index & parse problem ****//
                 //getJobNum() = Integer.parseInt(arr.get(1));
-                arry[n] = Integer.parseInt(arr.get(n));
-                load.setJobNum(arry[n]);
+
+                //arry[n] = Integer.parseInt(arr.get(n));
+                //load.setJobNum(arry[n]);
                 //load.setArrivalTime(arry[n+2]);
                 //System.out.print(arry[n] + "\n");
+
+                //arry[n][] = Integer.parseInt(arr.get(n));
+                //load.setArrivalTime(arry[n][]);
+
                 
                 //Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
-                
+       
+                //System.out.println(arry[n][]);
+
                
                 /*List<String> testLoad = new ArrayList<String>(Arrays.asList(dummy.split("[\\s]")));
                 for(int m = 0; m < loadArray.size();m++){
