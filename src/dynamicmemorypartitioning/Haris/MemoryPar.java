@@ -15,30 +15,49 @@ public class MemoryPar {
     private int jobNum;
     private int arrivalTime;
     private int processTime;
-    private int blockSize;
+    private int jobSize;
     
-    public MemoryPar(int jobnum, int arrivalTime, int processTime, int blocksize){
+    public MemoryPar(){
+    }
+    
+    public MemoryPar(int jobNum, int arrivalTime, int processTime, int jobSize){
         this.jobNum = jobNum;
         this.arrivalTime = arrivalTime;
         this.processTime = processTime;
-        this.blockSize = blockSize;
+        this.jobSize = jobSize;
     }
     
     //methods to store objects into the memory block list. since I can't figure out a way like c++;
+    public void setJobNum(int jobNum) {
+        this.jobNum=jobNum;
+    }
+    
     public int getJobNum() {
         return jobNum;
+    }
+    
+    public void setArrivalTime(int arrivalTime) {
+        this.arrivalTime=arrivalTime;
     }
     
     public int getArrivalTime() {
         return arrivalTime;
     }
     
+    public void setProcessTime(int processTime) {
+        this.processTime=processTime;
+    }
+    
     public int getProcessTime() {
         return processTime;
     }
     
-    public int getBlockSize() {
-        return blockSize;
+    public void setJobSize(int jobSize) {
+        this.jobSize=jobSize;
+    }
+    
+    public int getJobSize() {
+        return jobSize;
     }
     
     //
