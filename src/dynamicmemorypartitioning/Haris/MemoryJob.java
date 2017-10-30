@@ -10,17 +10,17 @@ package dynamicmemorypartitioning.Haris;
  *
  * @Iman Haris Bin Hadi DonutRanger
  */
-public class MemoryPar {
+public class MemoryJob {
 
     private int jobNum;
     private int arrivalTime;
     private int processTime;
     private int jobSize;
     
-    public MemoryPar(){
+    public MemoryJob(){
     }
     
-    public MemoryPar(int jobNum, int arrivalTime, int processTime, int jobSize){
+    public MemoryJob(int jobNum, int arrivalTime, int processTime, int jobSize){
         this.jobNum = jobNum;
         this.arrivalTime = arrivalTime;
         this.processTime = processTime;

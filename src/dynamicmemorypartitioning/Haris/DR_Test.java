@@ -5,7 +5,8 @@
  */
 package dynamicmemorypartitioning.Haris;
 
-import dynamicmemorypartitioning.Haris.MemoryPar;
+import dynamicmemorypartitioning.Haris.MemoryJob;
+import dynamicmemorypartitioning.Haris.MemoryPartition;
 import java.io.*;
 import java.util.*;
 
@@ -16,13 +17,13 @@ import java.util.*;
 
 public class DR_Test {
     
-    LinkedList<MemoryPar> Job = new LinkedList();
-    Queue<MemoryPar> WaitQueue = new LinkedList();
-    LinkedList<Integer> test = new LinkedList();
+    LinkedList<MemoryJob> Job = new LinkedList();
+    LinkedList<MemoryPartition> Partition = new LinkedList();
+    //Queue<MemoryPar> WaitQueue = new LinkedList();
+    //LinkedList<Integer> test = new LinkedList();
     static ArrayList<String> loadArray = new ArrayList(); 
     String readTxtFile;
-   
-    MemoryPar load = new MemoryPar();
+    MemoryJob load = new MemoryJob();
         
     
     //
@@ -32,9 +33,11 @@ public class DR_Test {
     public static void main(String[] args) throws IOException{
         DR_Test testRun = new DR_Test();
         testRun.readJob();
-        testRun.loadJobs();
+        testRun.readMemory();
+
+        //testRun.loadJobs();
     }
-    public static void skipLines(Scanner s,int lineNum){
+    public static void skip(Scanner s,int lineNum){
         for(int i = 0; i < lineNum;i++){
             if(s.hasNextLine())s.nextLine();
         }
@@ -43,7 +46,7 @@ public class DR_Test {
     public void readJob() throws IOException {
         //BufferedReader reader = null;
         try{
-            int i = 0;
+            //int i = 0;
             //reader = new BufferedReader(new FileReader("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
             //while((readTxtFile = reader.readLine())!= null){
             /*i++;
@@ -52,14 +55,16 @@ public class DR_Test {
             
             
             //loadArray.add(readTxtFile);    
-            int temp1, temp2, temp3, temp4;
+            int temp1, temp2, temp3, temp4, nJob;
             Scanner reader = new Scanner(new File("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
             //int testvar = reader;
             //List<String> loadText = new ArrayList<String>(Arrays.asList(readTextFile.split("[\\s\\n]")));
             while(reader.hasNextLine()){
-                skipLines(reader, 1);
+                nJob = reader.nextInt();
+                System.out.println(nJob);
+                skip(reader, 1);
                 //i++;
-                //Job.insert((MemoryPar)reader);
+                //Job.insert((MemoryJob)reader);
                 if(reader.hasNextInt()){
                     temp1 = reader.nextInt();
                     temp2 = reader.nextInt();
@@ -70,7 +75,9 @@ public class DR_Test {
                     System.out.print(temp3 + " ");
                     System.out.print(temp4 + "\n");
                     
-                    Job.add(new MemoryPar(temp1,temp2, temp3, temp4));
+                    Job.add(new MemoryJob(temp1,temp2, temp3, temp4));
+                    
+                    //System.out.print(Job.isEmpty());
                     //test.add(reader);
                     //Job.add((mgetArrivalTime());
                     //Job.ProcessTime();
@@ -80,7 +87,7 @@ public class DR_Test {
                 //List<String> readTest = new ArrayList<String>(Arrays.asList(readString.split("[\\s\\n]")));
                 
                 /*for(int i = 0; i < jobArray.size(); i++){
-                    Job.add((MemoryPar) readTest);
+                    Job.add((MemoryJob) readTest);
                 }*/
                
                 //jobArray.add(readString);
@@ -104,7 +111,7 @@ public class DR_Test {
                 System.out.println(Arrays.toString(arry));
                 
                 //System.out.println(arry[n]); //+ " " + arry[n+1] + " " + arry[n+2] + " " + arry[n+3]);
-                //Job.add(new MemoryPar(Integer.parseInt(arry[1]),(arry[2]),(arry[3]), (arry[0])));
+                //Job.add(new MemoryJob(Integer.parseInt(arry[1]),(arry[2]),(arry[3]), (arry[0])));
                 /*for(int m = 0; m < 4; m++)
                 {
                     System.out.println(arr.get);
@@ -125,14 +132,14 @@ public class DR_Test {
                 //load.setArrivalTime(arry[n][]);
 
                 
-                //Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
+                //Job.add(new MemoryJob((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
        
                 //System.out.println(arry[n][]);
 
                
                 /*List<String> testLoad = new ArrayList<String>(Arrays.asList(dummy.split("[\\s]")));
                 for(int m = 0; m < loadArray.size();m++){
-                    Job.add(new MemoryPar(Integer.parseInt((loadArray.get(m)), (loadArray.get(m+1)), (loadArray.get(m+2)), (loadArray.get(m+3)))));
+                    Job.add(new MemoryJob(Integer.parseInt((loadArray.get(m)), (loadArray.get(m+1)), (loadArray.get(m+2)), (loadArray.get(m+3)))));
                 }*/
             }
             
@@ -150,7 +157,7 @@ public class DR_Test {
                 System.out.println(jobArray.get(n));
             }*/
             
-            System.out.println(i);
+            //System.out.println(i);
             reader.close();
             
             /*for(int n = 0; n < jobArray.size(); n++) {
@@ -164,11 +171,29 @@ public class DR_Test {
         
     }
     
-    public void loadJobs(){
+    //public void loadJobs(){
         //change first job in the list because it is int of how many jobs.
         //int numJobs = Integer.parseInt(jobArray.get(0));
         //int nJobs = (int) toCast;
         //System.out.print(numJobs);
+    //}
+    
+    public void readMemory() {
+        try {
+            int temp1;
+            boolean temp2 = false; // since it is newly partitioned -> not occupied
+            Scanner reader = new Scanner(new File("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/MemoryListTest.txt"));
+            while(reader.hasNextLine()) {
+                skip(reader, 1);
+                if(reader.hasNextInt()) {
+                    temp1 = reader.nextInt();
+                    System.out.print(temp1 + "\n");
+                    Partition.add(new MemoryPartition(temp1, temp2));
+                }
+            }
+        } catch (IOException e) {
+            System.out.print(e);
+        }
     }
     
 }
