@@ -19,8 +19,10 @@ public class DR_Test {
     LinkedList<MemoryPar> Job = new LinkedList();
     Queue<MemoryPar> WaitQueue = new LinkedList();
     LinkedList<Integer> test = new LinkedList();
-    static ArrayList<Integer> jobArray = new ArrayList(); 
-    int readTxtFile;
+    static ArrayList<String> loadArray = new ArrayList(); 
+    String readTxtFile;
+        
+    
     //
     //List<String> writeStore = new ArrayList<String>(Arrays.asList(txtWrite.split("[\\s\\n]")));
     //int JobTime;
@@ -32,14 +34,20 @@ public class DR_Test {
     }
     
     public void readJob() throws IOException {
-        //BufferedReader reader = null;
+        BufferedReader reader = null;
         try{
             int i = 0;
-            //reader = new BufferedReader(new FileReader("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
-            //while((readTxtFile = reader.readLine())){
-            Scanner reader = new Scanner(new File("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/textTest.txt"));
+            reader = new BufferedReader(new FileReader("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
+            while((readTxtFile = reader.readLine())!= null){
+            
+            loadArray.add(readTxtFile);    
+            
+            //Scanner reader = new Scanner(new File("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/textTest.txt"));
             //int testvar = reader;
-            while(reader.hasNext()){
+            //List<String> loadText = new ArrayList<String>(Arrays.asList(readTextFile.split("[\\s\\n]")));
+            
+            
+            /*while(reader.hasNext()){
                 //i++;
                 //Job.insert((MemoryPar)reader);
                 if(reader.hasNextInt()){
@@ -48,7 +56,7 @@ public class DR_Test {
                     //Job.add((mgetArrivalTime());
                     //Job.ProcessTime();
                     //Job.getBlockSize();
-                }
+                }*/
                 
                 //List<String> readTest = new ArrayList<String>(Arrays.asList(readString.split("[\\s\\n]")));
                 
@@ -58,8 +66,30 @@ public class DR_Test {
                
                 //jobArray.add(readString);
             }
+            
+            String dummy;
+            for(int n = 0; n < 4; n++){
+                dummy = loadArray.get(n);
+                //String[] arr = new String[loadArray.size()];
+                //dummy = arr.split(" ")
+                List<String>  arr = new ArrayList<String>(Arrays.asList(dummy.split("[\\s]")));
+                //Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
+                //**** index & parse problem ****//
+                Job.add(new MemoryPar(Integer.parseInt((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4)))));
+                
+                
+                
+                /*List<String> testLoad = new ArrayList<String>(Arrays.asList(dummy.split("[\\s]")));
+                for(int m = 0; m < loadArray.size();m++){
+                    Job.add(new MemoryPar(Integer.parseInt((loadArray.get(m)), (loadArray.get(m+1)), (loadArray.get(m+2)), (loadArray.get(m+3)))));
+                }*/
+            }
+            
+            //int num
+            
+            
            
-            // List<String> readTest = new ArrayList<String>(Arrays.asList(readString.split("[\\s\\n]")));
+            
             /*for(int i = 0; i < jobArray.size(); i++){
                 readTest
             }*/
