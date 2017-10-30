@@ -40,7 +40,8 @@ public class DR_Test {
         BufferedReader reader = null;
         try{
             int i = 0;
-            reader = new BufferedReader(new FileReader("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
+            reader = new BufferedReader(new FileReader
+        ("C:\\Users\\user\\Documents\\NetBeansProjects\\DynamicMemoryPartitioning-master\\DynamicMemoryPartitioning\\src\\dynamicmemorypartitioning\\Haris\\JoblistTest.txt"));
             while((readTxtFile = reader.readLine())!= null){
             
             loadArray.add(readTxtFile);    
@@ -73,19 +74,23 @@ public class DR_Test {
             String dummy;
             for(int n = 1; n < loadArray.size(); n++){
                 dummy = loadArray.get(n);
-                Integer[] arry = new Integer[loadArray.size()];
+                //System.out.println(loadArray.size());
+                Integer[][] arry = new Integer[loadArray.size()][4];
                 //String[] arr = new String[loadArray.size()];
                 //dummy = arr.split(" ")
-                List<String>  arr = new ArrayList<String>(Arrays.asList(dummy.split("[\\s]")));
+                List<String>  arr = new ArrayList<>(Arrays.asList(dummy.split("[\\s]")));
                 //Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
+                System.out.println(arr.get(0));
+                //System.out.println(arr.get(1));
+                //System.out.println(arr.get(2));
                 //**** index & parse problem ****//
                 //getJobNum() = Integer.parseInt(arr.get(1));
-                arry[i] = Integer.parseInt(arr.get(i));
-                load.setArrivalTime(arry[i]);
+                //arry[n][] = Integer.parseInt(arr.get(n));
+                //load.setArrivalTime(arry[n][]);
                 
-                
-                Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
-                
+                //Job.add(new MemoryPar((arr.get(i+1)),(arr.get(2)),(arr.get(3)), (arr.get(4))));
+               
+                //System.out.println(arry[n][]);
                
                 /*List<String> testLoad = new ArrayList<String>(Arrays.asList(dummy.split("[\\s]")));
                 for(int m = 0; m < loadArray.size();m++){
