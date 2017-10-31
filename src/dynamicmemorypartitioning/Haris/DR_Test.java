@@ -175,7 +175,6 @@ public class DR_Test {
         boolean allJobStatus = false;
         int freeMemory; //the algorithms need access to free memory space available to control loops
         int totalMemoryBlocks;
-        int currentJobNum = 1; //start from job 1.
         LinkedList<MemoryPartition> dynamicpartition = new LinkedList();
         
         totalMemoryBlocks=0;
@@ -189,9 +188,9 @@ public class DR_Test {
             
             System.out.println("Time cycle: " + clock);
 
-            while(freeMemory>=dynamicpartition.get(currentJobNum).getMemorySize()){
+            while(freeMemory!=totalMemoryBlocks){
                 if(dynamicpartition.get(i).getOccupied()){
-                    currentJobNum = dynamicpartition.get(i).getJobNum();
+                    int currentJobNum = dynamicpartition.get(i).getJobNum();
                     int currentProcessTime = job.get(currentJobNum).getProcessTime();
                     job.get(currentJobNum).setProcessTime(currentProcessTime--);
                     if(job.get(currentJobNum).getProcessTime() == 0){
