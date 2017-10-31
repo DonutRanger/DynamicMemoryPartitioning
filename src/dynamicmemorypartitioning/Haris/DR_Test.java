@@ -47,8 +47,8 @@ public class DR_Test {
         int clock = 0;
         int i;
         boolean allJobStatus = false;
-        
         do{
+        System.out.println("Clock: " + clock);
         for(i = 0;i<memorypartition.size();i++){
             if(memorypartition.get(i).getOccupied()){
                 int currentJobNum = memorypartition.get(i).getJobNum();
@@ -60,18 +60,24 @@ public class DR_Test {
                 }
             }
         }
+        System.out.println(queue.isEmpty());
         if(!queue.isEmpty()){
-            Iterator iterator = queue.iterator();
-            while(iterator.hasNext()){
-              MemoryJob element = (MemoryJob) iterator.next();
-              System.out.println("The Waiting Job: Job" + element);
-            }
             
+            /*for(i = 0;i<queue.size();i++){
+                Iterator iterator = queue.iterator();
+                MemoryJob element = (MemoryJob) iterator.next();
+                System.out.println("The Waiting Job: Job" + element.getJobNum());
+                
+            }*/
+            //System.out.println("Queue Size: " + queue.size());
             for(i = 0;i<queue.size();i++){
+                Iterator iterator = queue.iterator();
+                MemoryJob element = (MemoryJob) iterator.next();
+                //System.out.println("The Waiting Job: Job" + element.getJobNum());
                 for(int k = 0; k<memorypartition.size();k++){
-                    if(queue.peek().getJobSize() <= memorypartition.get(k).getMemorySize() && !memorypartition.get(k).getOccupied()){
+                    if(element.getJobSize() <= memorypartition.get(k).getMemorySize() && !memorypartition.get(k).getOccupied()){
 
-                        int currentJobNum = queue.peek().getJobNum();
+                        int currentJobNum = element.getJobNum();
 
                         job.get(currentJobNum).setProcessStatus(true);
                         memorypartition.get(k).setJobNum(i);
@@ -108,7 +114,7 @@ public class DR_Test {
               if(!job.get(i).getProcessStatus()){
                   System.out.println("Job Not Match: " + job.get(i).getJobNum());
                   queue.add(job.get(i));
-                  System.out.println("Queue: " +queue.peek());
+                  System.out.println("Queue: Job " +queue.peek().getJobNum());
               }
               
             }
