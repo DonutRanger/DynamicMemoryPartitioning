@@ -22,6 +22,13 @@ public class DynamicMainTest {
         testDynamic.initialDyna();
     }
     
+    public void loadDyna(LinkedList<MemoryJob> jobQueue){
+        for(int i = 0; i < jobQueue.size(); i++) {
+            int currentJob = 
+        }
+    }
+    
+    
     
     public void initialDyna() {
         int memorySize = sumMemory();
