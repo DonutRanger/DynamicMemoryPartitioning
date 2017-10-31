@@ -130,7 +130,7 @@ public class DR_Test {
         //Declare a memory manager two-way linked list. The nodes should store memory size and free/used state.
         
         //.FOR the whole job list,
-        // .transverse the list checking for nodes with free state.
+        // .transverse the list checking for nodes with free state. Since this is first fit, look for the first available memory slot.
         // .if node with free state memory size is more or equal to job size, 
         //   .allocate memory for the job in the linked list by splitting the free memory to two nodes - one tagged not free the other tagged free.
         //   .FOR each job
