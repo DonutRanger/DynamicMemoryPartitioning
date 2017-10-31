@@ -66,26 +66,20 @@ public class DR_Test {
                     }
                 }
             }
-
+            
+            // Queue job list
             if(!queue.isEmpty()){
-
                 for(i = 0;i<queue.size();i++){
-
-                    System.out.println("Queue : " + queue.get(i).getJobNum() + " and " + queue.get(i).getJobSize());
-    
+                    System.out.println("Queue -> " + queue.get(i).getJobNum() + " & Size -> " + queue.get(i).getJobSize());
                     for(int k = 0; k < memorypartition.size();k++){
-                        
                         if( queue.get(i).getJobSize() <= memorypartition.get(k).getMemorySize() && !memorypartition.get(k).getOccupied()){
-                            
                             int lineNum = 0;
-                            int currentJobNum = queue.get(i).getJobNum();
-                            
+                            int currentJobNum = queue.get(i).getJobNum(); 
                             for(int t = 1; t<job.size();t++){
                                 if(currentJobNum == job.get(t).getJobNum()){
                                     lineNum = t;
                                 }
                             }
-                            
                             job.get(lineNum).setProcessStatus(true);
                             memorypartition.get(k).setJobNum(lineNum);
                             memorypartition.get(k).setOccupied(true);
@@ -100,9 +94,10 @@ public class DR_Test {
                             break;
                         }
                     }
-
                 }
             }
+            
+            // loaded Job list
             for(i = 0;i<job.size();i++){
 
                 if(job.get(i).getArrivalTime()==clock && !job.get(i).getProcessStatus() && !job.get(i).getJobDone()){
@@ -128,14 +123,13 @@ public class DR_Test {
 
                   if(!job.get(i).getProcessStatus()){
                       
-                      System.out.println("Job Not Match: " + job.get(i).getJobNum());
+                      System.out.println("Job not Fit: " + job.get(i).getJobNum());
                       queue.addLast(job.get(i));
                       System.out.println("-----------------------------------------------");
                   
                   }
 
                 }
-
             }
 
             for(i = 0; i< job.size(); i++){
@@ -186,7 +180,7 @@ public class DR_Test {
             //loadArray.add(readTxtFile);    
             int temp1, temp2, temp3, temp4, nJob;
             Scanner reader = new Scanner(new File
-        ("C:\\Users\\user\\Documents\\NetBeansProjects\\DynamicMemoryPartitioning-master\\DynamicMemoryPartitioning\\src\\dynamicmemorypartitioning\\Haris\\JoblistTest.txt"));
+        ("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
             //int testvar = reader;
             //List<String> loadText = new ArrayList<String>(Arrays.asList(readTextFile.split("[\\s\\n]")));
             while(reader.hasNextLine()){
@@ -310,7 +304,7 @@ public class DR_Test {
             int temp1;
             boolean temp2 = false; // since it is newly partitioned -> not occupied
             Scanner reader = new Scanner(new File
-        ("C:\\Users\\user\\Documents\\NetBeansProjects\\DynamicMemoryPartitioning-master\\DynamicMemoryPartitioning\\src\\dynamicmemorypartitioning\\Haris\\MemoryListTest.txt"));
+        ("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/MemoryListTest.txt"));
             while(reader.hasNextLine()) {
                 skip(reader, 1);
                 if(reader.hasNextInt()) {
