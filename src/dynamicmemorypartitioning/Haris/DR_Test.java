@@ -124,6 +124,26 @@ public class DR_Test {
         }while(!allJobStatus);
     }
     
+    public void dynamicFirstFit(LinkedList<MemoryJob> job, Queue<MemoryJob> queue){
+        int clock = 0;
+        int i;
+        //Declare a memory manager two-way linked list. The nodes should store memory size and free/used state.
+        
+        //.FOR the whole job list,
+        // .transverse the list checking for nodes with free state.
+        // .if node with free state memory size is more or equal to job size, 
+        //   .allocate memory for the job in the linked list by splitting the free memory to two nodes - one tagged not free the other tagged free.
+        //   .FOR each job
+        //     .just copy Kai Wen's code to complete the job processing time.
+        //     .when job completes, deallocate memory by tagging the node the memory was assigned to as free.
+        //     .if memory of next and/or previous node is also free, merge the two nodes by adding up the memory, 
+        //      changing the memory size of the first node of the list to the total memory and deleting all nodes
+        //      that were involved in the merging process.
+        // else
+        //   .put job into waiting queue.
+        //   .calculate external fragmentation. (total of all free state nodes)
+    }
+    
     public void readJob() throws IOException {
         //BufferedReader reader = null;
         try{
