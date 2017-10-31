@@ -15,7 +15,7 @@ public class MemoryPartition {
     private int blockSize;
     private boolean occupied;
     private int fragmentation;
-    private boolean memory_allocated;
+    private int jobNum;
     
     public MemoryPartition() {
     }
@@ -24,13 +24,20 @@ public class MemoryPartition {
         this.blockSize=blockSize;
         this.occupied=occupied;
     }
+    
+    public int getJobNum(){
+        return this.jobNum;
+    }
 
+    public void setJobNum(int jobNum){
+        this.jobNum = jobNum;
+    }
 
-    public void setOccupied(boolean occupied) {
+    public void setOccupied(boolean occupied) { // Please revise the functions, they look the same
         this.occupied = occupied;
     }
     
-    public boolean getOccupied(){
+    public boolean getOccupied(){ // Please revise the functions, they look the same
         return occupied;
     }
     
@@ -40,18 +47,6 @@ public class MemoryPartition {
     
     public int getMemorySize() {
         return this.blockSize;
-    }
-    
-    public boolean getMemoryAllocated() {
-        return this.memory_allocated;
-    }
-    
-    public void allocateMemory() {
-        this.memory_allocated = true;
-    }
-
-    public void deallocateMemory() {
-        this.memory_allocated = false;
     }
 
     public void fragmentationVal(int val) {
