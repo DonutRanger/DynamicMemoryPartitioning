@@ -24,7 +24,7 @@ public class DynamicMainTest {
     
     public void loadDyna(LinkedList<MemoryJob> jobQueue){
         for(int i = 0; i < jobQueue.size(); i++) {
-            int currentJob = 
+            //int currentJob = 
         }
     }
     

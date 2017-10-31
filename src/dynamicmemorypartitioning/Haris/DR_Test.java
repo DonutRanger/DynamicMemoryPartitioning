@@ -146,7 +146,8 @@ public class DR_Test {
         }while(!allJobStatus);
     }
     
-    public void dynamicFirstFit(LinkedList<MemoryJob> job, LinkedList<MemoryPartition> fixedpartition, Queue<MemoryJob> queue){
+    // Asad's code
+    /*public void dynamicFirstFit(LinkedList<MemoryJob> job, LinkedList<MemoryPartition> fixedpartition, Queue<MemoryJob> queue){
         //Declare a memorypartitioner two-way linked list. The nodes should store memory size and free/used state.
         
         //.FOR the whole job list,
@@ -277,7 +278,7 @@ public class DR_Test {
             clock++;
             
         }while(!allJobStatus);
-    }
+    }*/
     
     public void readJob() throws IOException {
         //BufferedReader reader = null;
