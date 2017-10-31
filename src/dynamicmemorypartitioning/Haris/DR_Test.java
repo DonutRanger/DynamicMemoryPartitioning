@@ -60,8 +60,8 @@ public class DR_Test {
                     job.get(currentJobNum).setProcessTime(newProcessTime);
                     if(job.get(currentJobNum).getProcessTime() == 0){
                         memorypartition.get(i).setOccupied(false);
-                        job.get(i).setJobDone(true);
-                        System.out.println("Job Done: " + job.get(i).getJobNum());
+                        job.get(currentJobNum).setJobDone(true);
+                        System.out.println("Job Done: " + job.get(currentJobNum).getJobNum());
                         System.out.println("-----------------------------------------------");
                     }
                 }
