@@ -34,13 +34,13 @@ public class DynamicMemoryPartitioning extends Application {
        
     }
     
-    public void ButtonClicked(ActionEvent e)
+    /*public void ButtonClicked(ActionEvent e)
     {
         if (e.getSource()==btnscene1)
             thestage.setScene(scene2);
         else
             thestage.setScene(scene1);
-    }
+    }*/
 
     /**
      * @param args the command line arguments

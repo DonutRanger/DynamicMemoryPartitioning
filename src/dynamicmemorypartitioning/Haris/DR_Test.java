@@ -71,7 +71,7 @@ public class DR_Test {
             // Queue job list
             if(!queue.isEmpty()){
                 for(i = 0;i<queue.size();i++){
-                    System.out.println("Queue -> " + queue.get(i).getJobNum() + " & Size -> " + queue.get(i).getJobSize());
+                    System.out.println("Queue -> " + queue.get(i).getJobNum() + " ; Size -> " + queue.get(i).getJobSize());
                     for(int k = 0; k < memorypartition.size();k++){
                         if( queue.get(i).getJobSize() <= memorypartition.get(k).getMemorySize() && !memorypartition.get(k).getOccupied()){
                             int lineNum = 0;

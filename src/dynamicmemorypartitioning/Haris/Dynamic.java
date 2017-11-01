@@ -15,13 +15,20 @@ public class Dynamic {
     private int processTime;
     private int jobSize;
     private int memorySize;
-    private int memoryUpBound;
-    private int memoryLowBound;
+    private int startBound;
+    private int endBound;
+    private int frag;
+    private boolean occupyStatus;
     
-    public Dynamic (int memorySize, int memoryUpBound, int memoryLowBound) {
+    
+    public Dynamic (int memorySize, int startBound, int endBound, boolean occupyStatus) {
+        //this.jobNum = jobNum;
+        //this.processTime = processTime;
+        //this.jobSize = jobSize;
         this.memorySize = memorySize;
-        this.memoryUpBound = memoryUpBound;
-        this.memoryLowBound = memoryLowBound;
+        this.startBound = startBound;
+        this.endBound = endBound;
+        this.occupyStatus = occupyStatus;
     }
     
     public void setJobNum(int jobNum) {
@@ -56,16 +63,36 @@ public class Dynamic {
         return memorySize;
     }
     
-    public void setMemoryUpBound(int memoryUpBound) {
-        this.memoryUpBound = memoryUpBound;
+    public void setStartBound(int startBound) {
+        this.startBound = startBound;
     }
     
-    public int getMemoryUpBound() {
-        return memoryUpBound;
+    public int getStartBound() {
+        return startBound;
     }
     
-    public void setMemoryLowBound(int memoryLowBound) {
-        this.memoryLowBound = memoryLowBound;
+    public void setEndBound(int endBound) {
+        this.endBound = endBound;
+    }
+    
+    public int getEndBound() {
+        return endBound;
+    }
+    
+    public boolean getOccupyStatus(){
+        return occupyStatus;
+    }
+    
+    public void setOccupyStatus(boolean occupyStatus) {
+        this.occupyStatus = occupyStatus;
+    }
+    
+    public int getFrag() {
+        return frag;
+    }
+    
+    public void setFrag(int frag) {
+        this.frag = frag;
     }
     
 }
