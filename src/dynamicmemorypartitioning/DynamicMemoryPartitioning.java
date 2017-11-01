@@ -26,7 +26,7 @@ public class DynamicMemoryPartitioning {
     public static void main(String[] args) {
 
         DynamicMemoryPartitioning d = new DynamicMemoryPartitioning();
-        d.requestInput(args);
+//        d.requestInput(args);
 
         MainMemory mainMemory = new MainMemory(mainMemSize);
         MemoryRequestGenerator generatorSeed = new MemoryRequestGenerator(
@@ -57,8 +57,8 @@ public class DynamicMemoryPartitioning {
             throughPut += throughput;
         }
 
-        System.out.println("Throughput: " + throughPut);
-        System.out.println("Average Wait Time: " + (queueTime / (blocksAdded * 1.0)));
+        //System.out.println("Throughput: " + throughPut);
+        //System.out.println("Average Wait Time: " + (queueTime / (blocksAdded * 1.0)));
 
     }
 

@@ -31,8 +31,41 @@ public class DynamicMainTest {
     
     public void D_FirstFit(LinkedList<MemoryJob> jobQueue, LinkedList<Dynamic> memoryList){
         
+        LinkedList<Dynamic> obj = new LinkedList();
         int clock = 0;
+        int minSize2 = 0, maxSize2 = 50000;
         //int i = 0;
+        System.out.println(memoryList.get(1).hasemptyBlock());
+        for(int n = 0; n < jobQueue.size(); n++) {
+            
+            if(memoryList.get(n).hasemptyBlock()) {
+                obj.get(n).setJobNum(n);
+                obj.get(n).setProcessTime(jobQueue.get(n).getProcessTime());
+                obj.get(n).setMemorySize(jobQueue.get(n).getJobSize()); // unsure
+                obj.get(n).setOccupyStatus(true);
+                
+                //need to implement frag to check
+                for(int m = 0; m < obj.size(); m++){
+                    if(obj.get(m).getJobNum() == 1){
+                        obj.get(m).setJobSize(jobQueue.get(m).getJobSize());
+                        obj.get(m).setStartBound(0);
+                        int startBound = obj.get(m).getStartBound();
+                        int memSize = obj.get(m).getJobSize();
+                        obj.get(m).setEndBound(startBound + memSize);
+                    }
+                    
+                    else{
+                        
+                    }
+                }
+            }
+        }
+        
+        
+        
+        
+        
+        
         do {
             int minSize = 0;
             int maxSize = 50000;
@@ -67,7 +100,6 @@ public class DynamicMainTest {
                         int startBound = memoryList.get(i).getStartBound();
                         int memSize = memoryList.get(i).getJobSize();
                         memoryList.get(i).setEndBound(startBound + memSize);
-
                     }
                 }
             }

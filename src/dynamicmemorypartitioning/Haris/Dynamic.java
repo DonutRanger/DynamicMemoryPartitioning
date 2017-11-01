@@ -21,6 +21,8 @@ public class Dynamic {
     private boolean occupyStatus;
     
     
+    
+    
     public Dynamic (int memorySize, int startBound, int endBound, boolean occupyStatus) {
         //this.jobNum = jobNum;
         //this.processTime = processTime;
@@ -30,6 +32,20 @@ public class Dynamic {
         this.endBound = endBound;
         this.occupyStatus = occupyStatus;
     }
+    
+    //public boolean getEmpty()
+    
+    public boolean hasemptyBlock() {
+        boolean status = false;
+        if(occupyStatus = false)
+        {
+            status = true;
+        }
+        
+        return status;
+    }
+    
+    
     
     public void setJobNum(int jobNum) {
         this.jobNum = jobNum;
