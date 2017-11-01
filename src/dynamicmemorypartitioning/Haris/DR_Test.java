@@ -196,7 +196,6 @@ public class DR_Test {
     public void dynamicFirstFit(LinkedList<MemoryJob> job, LinkedList<MemoryPartition> fixedpartition, Queue<MemoryJob> queue){
         
         int clock = 0;
-        int i;
         boolean allJobStatus = false;
         int freeMemory; //the algorithms need access to free memory space available to control loops
         int totalMemoryBlocks;
@@ -209,6 +208,108 @@ public class DR_Test {
         freeMemory = totalMemoryBlocks;
         dynamicpartition.addLast(new MemoryPartition(freeMemory, false)); //creates a node for all free memory
        
+        while(true){
+            
+            System.out.println("---------------------------------");
+            System.out.println("Time cycle: " + clock);
+            for(int i = 0;i<dynamicpartition.size();i++){
+                if(dynamicpartition.get(i).getOccupied()){
+                    int currentJobNum = dynamicpartition.get(i).getJobNum();
+                    int currentProcessTime = job.get(currentJobNum).getProcessTime();
+                    int newProcessTime = --currentProcessTime;
+                    job.get(currentJobNum).setProcessTime(newProcessTime);
+                    if(job.get(currentJobNum).getProcessTime() == 0){
+                        //deallocate memory
+                        job.get(currentJobNum).setJobDone(true);
+                        System.out.println("Job Done: " + job.get(currentJobNum).getJobNum());
+                        //System.out.println("-----------------------------------------------");
+                    }
+                }
+            }
+            
+            //Queue job list
+            if(!queue.isEmpty()){
+                
+                for(int q = 0;q<queue.size();q++){
+                    System.out.println("Queue : " + queue.get(q).getJobNum() + " and " + queue.get(q).getJobSize());
+                }
+                
+                for(int queueLine = 0;queueLine<queue.size();queueLine++){
+    
+                    for(int k = 0; k < dynamicpartition.size();k++){
+                        
+                        if( queue.get(queueLine).getJobSize() <= free memory partitions (refer to list for this)){
+                            
+                            int lineNum = 0;
+                            int currentJobNum = queue.get(queueLine).getJobNum();
+                            
+                            for(int t = 1; t<job.size();t++){
+                                if(currentJobNum == job.get(t).getJobNum()){
+                                    lineNum = t;
+                                }
+                            }
+                            job.get(lineNum).setProcessStatus(true);
+                            dynamicpartition.get(k).setJobNum(lineNum);
+                            dynamicpartition.get(k).setOccupied(true);
+                            //This should be where external fragmentation should come in. (Check how much partitions are free but unavailable because of size)
+                            //dynamicpartition.get(k).fragmentationVal(memorypartition.get(k).getMemorySize()-job.get(lineNum).getJobSize());
+
+                            System.out.println("Queue Job Processing: " + job.get(lineNum).getJobNum());
+                            //System.out.println("Fragmentation Value: " + dynamicpartition.get(k).getFragmentationVal());
+                            //System.out.println("-----------------------------------------------");
+
+                            queue.remove(queueLine);
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            // loaded Job list
+            for(int jobLine = 0;jobLine<job.size();jobLine++){
+
+                if(job.get(jobLine).getArrivalTime()==clock && !job.get(jobLine).getProcessStatus() && !job.get(jobLine).getJobDone()){
+                  System.out.println(jobLine);
+                  System.out.println("Arrival Job: " + job.get(jobLine).getJobNum());
+                    
+                  for(int k = 0;k<memorypartition.size();k++){ 
+
+                    if(job.get(jobLine).getJobSize() <=  && !memorypartition.get(k).getOccupied()){
+                        
+                        job.get(jobLine).setProcessStatus(true);
+                        memorypartition.get(k).setJobNum(jobLine);
+                        memorypartition.get(k).setOccupied(true);
+                        memorypartition.get(k).fragmentationVal(memorypartition.get(k).getMemorySize()-job.get(jobLine).getJobSize());
+
+                        System.out.println("Job Processing: " + job.get(jobLine).getJobNum()
+                                
+                        //System.out.println("Fragmentation Value: " + memorypartition.get(k).getFragmentationVal());
+                        //System.out.println("-----------------------------------------------");
+
+                        break;
+                    }
+
+                  }
+
+                  if(!job.get(jobLine).getProcessStatus()){
+                      
+                      System.out.println("Job not Fit: " + job.get(jobLine).getJobNum());
+                      queue.addLast(job.get(jobLine));
+                      System.out.println("-----------------------------------------------");
+                  
+                  }
+
+                }
+            }
+            
+            if(freeMemory == totalMemoryBlocks && allJobsDone)
+                break; //end the loop
+            clock++;
+        }
+        
+    }
+    
+    public void updateMemoryManager(){
         
     }
     
