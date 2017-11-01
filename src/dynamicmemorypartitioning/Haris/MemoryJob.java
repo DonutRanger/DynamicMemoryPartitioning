@@ -18,20 +18,30 @@ public class MemoryJob {
     private int jobSize;
     private boolean processStatus;
     private boolean jobDone;
+    private int endTime;
     
     public MemoryJob(){
     }
     
-    public MemoryJob(int jobNum, int arrivalTime, int processTime, int jobSize, boolean processing, boolean jobDone){
+    public MemoryJob(int jobNum, int arrivalTime, int processTime, int jobSize, boolean processing, boolean jobDone, int endTime){
         this.jobNum = jobNum;
         this.arrivalTime = arrivalTime;
         this.processTime = processTime;
         this.jobSize = jobSize;
         this.processStatus = processing;
         this.jobDone = jobDone;
+        this.endTime = endTime;
     }
     
     //methods to store objects into the memory block list. since I can't figure out a way like c++;
+    public void setEndTime(int endTime){
+        this.endTime = endTime;
+    }
+    
+    public int getEndTime(){
+        return this.endTime;
+    }
+    
     public void setJobDone(boolean jobDone){
         this.jobDone = jobDone;
     }
