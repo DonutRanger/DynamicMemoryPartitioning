@@ -32,10 +32,21 @@ public class DR_Test {
     
     public static void main(String[] args) throws IOException{
         DR_Test testRun = new DR_Test();
+        DR_Test testRun2 = new DR_Test();
+        
+        System.out.println("FIRST FIT ALGORITHM");
         testRun.readJob();
         testRun.readMemory();
-        //testRun.FirstFitAlgo(Job, Partition, WaitQueue);
-        testRun.BestFitAlgo(Job, Partition, WaitQueue);
+        testRun.FirstandBestFitAlgo(Job, Partition, WaitQueue);
+        
+        
+        
+        System.out.println("BEST FIT ALGORITHM");
+        testRun2.readJob();
+        testRun2.readMemory();
+        WaitQueue.clear();
+        testRun2.changeArrangement(Partition);
+        testRun2.FirstandBestFitAlgo(Job, Partition, WaitQueue);
         //testRun.dynamicFirstFit(Job, Partition, WaitQueue);
         //testRun.loadJobs();
     }
@@ -45,16 +56,16 @@ public class DR_Test {
         }
     }
     
-    public void FirstFitAlgo(LinkedList<MemoryJob> job, LinkedList<MemoryPartition> memorypartition, LinkedList<MemoryJob> queue){
+    public void FirstandBestFitAlgo(LinkedList<MemoryJob> job, LinkedList<MemoryPartition> memorypartition, LinkedList<MemoryJob> queue){
         int clock = 0;
-        int i;
         boolean allJobStatus = false;
-        
-        do{
-        
-            System.out.println("Time cycle: " + clock);
 
-            for(i = 0;i<memorypartition.size();i++){
+        do{
+            
+            System.out.println("---------------------------------");
+            System.out.println("Time cycle: " + clock);
+            
+            for(int i = 0;i<memorypartition.size();i++){
                 if(memorypartition.get(i).getOccupied()){
                     int currentJobNum = memorypartition.get(i).getJobNum();
                     int currentProcessTime = job.get(currentJobNum).getProcessTime();
@@ -64,23 +75,25 @@ public class DR_Test {
                         memorypartition.get(i).setOccupied(false);
                         job.get(currentJobNum).setJobDone(true);
                         System.out.println("Job Done: " + job.get(currentJobNum).getJobNum());
-                        System.out.println("-----------------------------------------------");
+                        //System.out.println("-----------------------------------------------");
                     }
                 }
             }
 
             if(!queue.isEmpty()){
-
-                for(i = 0;i<queue.size();i++){
-
-                    System.out.println("Queue : " + queue.get(i).getJobNum() + " and " + queue.get(i).getJobSize());
+                
+                for(int q = 0;q<queue.size();q++){
+                    System.out.println("Queue : " + queue.get(q).getJobNum() + " and " + queue.get(q).getJobSize());
+                }
+                
+                for(int queueLine = 0;queueLine<queue.size();queueLine++){
     
                     for(int k = 0; k < memorypartition.size();k++){
                         
-                        if( queue.get(i).getJobSize() <= memorypartition.get(k).getMemorySize() && !memorypartition.get(k).getOccupied()){
+                        if( queue.get(queueLine).getJobSize() <= memorypartition.get(k).getMemorySize() && !memorypartition.get(k).getOccupied()){
                             
                             int lineNum = 0;
-                            int currentJobNum = queue.get(i).getJobNum();
+                            int currentJobNum = queue.get(queueLine).getJobNum();
                             
                             for(int t = 1; t<job.size();t++){
                                 if(currentJobNum == job.get(t).getJobNum()){
@@ -96,43 +109,44 @@ public class DR_Test {
                             System.out.println("Queue Job Processing: " + job.get(lineNum).getJobNum());
                             System.out.println("Memory Block Used: " + memorypartition.get(k).getMemorySize());
                             System.out.println("Fragmentation Value: " + memorypartition.get(k).getFragmentationVal());
-                            System.out.println("-----------------------------------------------");
+                            //System.out.println("-----------------------------------------------");
 
-                            queue.remove(i);
+                            queue.remove(queueLine);
                             break;
                         }
                     }
-
                 }
             }
-            for(i = 0;i<job.size();i++){
+            for(int jobLine = 0;jobLine<job.size();jobLine++){
 
-                if(job.get(i).getArrivalTime()==clock && !job.get(i).getProcessStatus() && !job.get(i).getJobDone()){
-
+                if(job.get(jobLine).getArrivalTime()==clock && !job.get(jobLine).getProcessStatus() && !job.get(jobLine).getJobDone()){
+                  System.out.println(jobLine);
+                  System.out.println("Arrival Job: " + job.get(jobLine).getJobNum());
+                    
                   for(int k = 0;k<memorypartition.size();k++){ 
 
-                    if(job.get(i).getJobSize() <= memorypartition.get(k).getMemorySize() && !memorypartition.get(k).getOccupied()){
-
-                        job.get(i).setProcessStatus(true);
-                        memorypartition.get(k).setJobNum(i);
+                    if(job.get(jobLine).getJobSize() <= memorypartition.get(k).getMemorySize() && !memorypartition.get(k).getOccupied()){
+                        
+                        job.get(jobLine).setProcessStatus(true);
+                        memorypartition.get(k).setJobNum(jobLine);
                         memorypartition.get(k).setOccupied(true);
-                        memorypartition.get(k).fragmentationVal(memorypartition.get(k).getMemorySize()-job.get(i).getJobSize());
+                        memorypartition.get(k).fragmentationVal(memorypartition.get(k).getMemorySize()-job.get(jobLine).getJobSize());
 
-                        System.out.println("Job Processing: " + job.get(i).getJobNum());
+                        System.out.println("Job Processing: " + job.get(jobLine).getJobNum());
                         System.out.println("Memory Block Used: " + memorypartition.get(k).getMemorySize());
                         System.out.println("Fragmentation Value: " + memorypartition.get(k).getFragmentationVal());
-                        System.out.println("-----------------------------------------------");
+                        //System.out.println("-----------------------------------------------");
 
                         break;
                     }
 
                   }
 
-                  if(!job.get(i).getProcessStatus()){
-                      
-                      System.out.println("Job Not Match: " + job.get(i).getJobNum());
-                      queue.addLast(job.get(i));
-                      System.out.println("-----------------------------------------------");
+                  if(!job.get(jobLine).getProcessStatus()){
+                      System.out.println(jobLine);
+                      System.out.println("Job Not Match: " + job.get(jobLine).getJobNum() + " in waiting queue");
+                      queue.addLast(job.get(jobLine));
+                      //System.out.println("-----------------------------------------------");
                   
                   }
 
@@ -140,7 +154,7 @@ public class DR_Test {
 
             }
 
-            for(i = 0; i< job.size(); i++){
+            for(int i = 0; i< job.size(); i++){
                 
                 if(!job.get(i).getJobDone()){
                    break;
@@ -150,142 +164,45 @@ public class DR_Test {
             
             clock++;
             
-        }while(!allJobStatus);
-    }
-    
-    public void BestFitAlgo(LinkedList<MemoryJob> job, LinkedList<MemoryPartition> memorypartition, LinkedList<MemoryJob> queue){
-        int clock = 0;
-        int i;
-        boolean allJobStatus = false;
-        int memoryWaste=0;
-        int initialMemoryWaste=0;
-        
-        changeArrangement(memorypartition);
-        
-        do{
-        
-            System.out.println("Time cycle: " + clock);
-
-            /*for(i = 0;i<memorypartition.size();i++){
-                if(memorypartition.get(i).getOccupied()){
-                    int currentJobNum = memorypartition.get(i).getJobNum();
-                    int currentProcessTime = job.get(currentJobNum).getProcessTime();
-                    int newProcessTime = --currentProcessTime;
-                    job.get(currentJobNum).setProcessTime(newProcessTime);
-                    if(job.get(currentJobNum).getProcessTime() == 0){
-                        memorypartition.get(i).setOccupied(false);
-                        job.get(currentJobNum).setJobDone(true);
-                        System.out.println("Job Done: " + job.get(currentJobNum).getJobNum());
-                        System.out.println("-----------------------------------------------");
-                    }
-                }
-            }*/
-
-            /*if(!queue.isEmpty()){
-
-                for(i = 0;i<queue.size();i++){
-
-                    System.out.println("Queue : " + queue.get(i).getJobNum() + " and " + queue.get(i).getJobSize());
-    
-                    for(int k = 0; k < memorypartition.size();k++){
-                        
-                        if( queue.get(i).getJobSize() <= memorypartition.get(k).getMemorySize() && !memorypartition.get(k).getOccupied()){
-                            
-                            int lineNum = 0;
-                            int currentJobNum = queue.get(i).getJobNum();
-                            
-                            for(int t = 1; t<job.size();t++){
-                                if(currentJobNum == job.get(t).getJobNum()){
-                                    lineNum = t;
-                                }
-                            }
-                            
-                            job.get(lineNum).setProcessStatus(true);
-                            memorypartition.get(k).setJobNum(lineNum);
-                            memorypartition.get(k).setOccupied(true);
-                            memorypartition.get(k).fragmentationVal(memorypartition.get(k).getMemorySize()-job.get(lineNum).getJobSize());
-
-                            System.out.println("Queue Job Processing: " + job.get(lineNum).getJobNum());
-                            System.out.println("Memory Block Used: " + memorypartition.get(k).getMemorySize());
-                            System.out.println("Fragmentation Value: " + memorypartition.get(k).getFragmentationVal());
-                            System.out.println("-----------------------------------------------");
-
-                            queue.remove(i);
-                            break;
-                        }
-                    }
-
-                }
-            }*/
-            for(i = 0;i<job.size();i++){
-                                
-                if(job.get(i).getArrivalTime()==clock && !job.get(i).getProcessStatus() && !job.get(i).getJobDone()){
-                
-                    initialMemoryWaste = 50000 - job.get(i).getJobSize();
-                  
-                    for(int k = 0; k < memorypartition.size() ;k++){
-                        
-                        
-                        
-                    }
-                       
-                    /*for(int k = 0;k<memorypartition.size();k++){ 
-
-                    if(job.get(i).getJobSize() <= memorypartition.get(k).getMemorySize() && !memorypartition.get(k).getOccupied()){
-
-                        job.get(i).setProcessStatus(true);
-                        memorypartition.get(k).setJobNum(i);
-                        memorypartition.get(k).setOccupied(true);
-                        memorypartition.get(k).fragmentationVal(memorypartition.get(k).getMemorySize()-job.get(i).getJobSize());
-
-                        System.out.println("Job Processing: " + job.get(i).getJobNum());
-                        System.out.println("Memory Block Used: " + memorypartition.get(k).getMemorySize());
-                        System.out.println("Fragmentation Value: " + memorypartition.get(k).getFragmentationVal());
-                        System.out.println("-----------------------------------------------");
-
-                        break;
-                    }
-
-                  }*/
-
-                  if(!job.get(i).getProcessStatus()){
-                      
-                      System.out.println("Job Not Match: " + job.get(i).getJobNum());
-                      queue.addLast(job.get(i));
-                      System.out.println("-----------------------------------------------");
-                  
-                  }
-
-                }
-
+            if(clock > 100){
+                break;
             }
-
-            /*for(i = 0; i< job.size(); i++){
-                
-                if(!job.get(i).getJobDone()){
-                   break;
-                }
-                
-            }*/
-            
-            clock++;
             
         }while(!allJobStatus);
-    }
-    
-    public void changeArrangement(LinkedList<MemoryPartition> memory){
         
-        for(int outerloop = 0; outerloop < memory.size(); outerloop++){
-            
-            for(int innerloop = 0; innerloop < memory.size(); innerloop++){
-                if(memory.get(innerloop).getMemorySize() > memory.get(innerloop + 1).getMemorySize()){
-                    Collections.swap(memory, innerloop, innerloop+1);
-                }
-            
+        for(int i = 0; i<job.size(); i++){
+            if(!job.get(i).getJobDone()){
+                System.out.println("Job " + job.get(i).getJobNum() + ": Permanently Not Done.");
             }
-
         }
         
+    }
+        
+    public void changeArrangement(LinkedList<MemoryPartition> memorypartition){
+        
+        for(int outerloop = 0; outerloop < 10; outerloop++){
+            for(int innerloop = 0; innerloop < 10; innerloop++){
+                if(memorypartition.get(innerloop).getMemorySize() > memorypartition.get(innerloop + 1).getMemorySize()){
+                    Collections.swap(memorypartition, innerloop, innerloop+1);
+                }
+            
+            }
+        }
+        
+    }
+    
+    public void initializeBoolean(LinkedList<MemoryJob> job, LinkedList<MemoryPartition> memorypartition, LinkedList<MemoryJob> queue){
+        
+        for(int i = 0; i<job.size();i++){
+            job.get(i).setJobDone(false);
+            job.get(i).setProcessStatus(false);
+        }
+        
+        for(int k = 0; k<memorypartition.size();k++){
+            memorypartition.get(k).setOccupied(false);
+        }
+        
+            queue.removeAll(queue);
     }
     
     /*public void dynamicFirstFit(LinkedList<MemoryJob> job, LinkedList<MemoryPartition> fixedpartition, Queue<MemoryJob> queue){
@@ -422,7 +339,7 @@ public class DR_Test {
     }*/
     
     public void readJob() throws IOException {
-        //BufferedReader reader = null;
+        //BufferedReader reader = null;       
         try{
             //int i = 0;
             //reader = new BufferedReader(new FileReader("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
@@ -430,7 +347,6 @@ public class DR_Test {
             /*i++;
             List<String> loadText = new ArrayList<String>(Arrays.asList(readTxtFile.split("[\\s\\n]")));
             Job.setJobNum(Integer.parseInt(loadText.get(1)));*/
-            
             
             //loadArray.add(readTxtFile);    
             int temp1, temp2, temp3, temp4, nJob;
