@@ -163,7 +163,7 @@ public class DynamicMainTest {
         try {
             int temp1, temp2, temp3, temp4;
             Scanner reader = new Scanner(new File
-("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/JoblistTest.txt"));
+("C:\\Users\\user\\Documents\\NetBeansProjects\\DynamicMemoryPartitioning-master\\DynamicMemoryPartitioning\\src\\dynamicmemorypartitioning\\Haris\\JoblistTest.txt"));
             while(reader.hasNextLine()) {
                 skip(reader, 1);
                 if(reader.hasNextInt()) {
@@ -175,7 +175,7 @@ public class DynamicMainTest {
                     System.out.print(temp2 + " ");
                     System.out.print(temp3 + " ");
                     System.out.print(temp4 + "\n");
-                    Job.add(new MemoryJob(temp1, temp2, temp3, temp4, false, false));
+                    Job.add(new MemoryJob(temp1, temp2, temp3, temp4, false, false, 0));
                 }
             }
         } catch (IOException e) {
@@ -188,7 +188,7 @@ public class DynamicMainTest {
         try {
             int temp1;
             Scanner reader = new Scanner(new File
-        ("/Users/DonutRanger/NetBeansProjects/DynamicMemoryPartitioning/src/dynamicmemorypartitioning/Haris/MemoryListTest.txt"));
+        ("C:\\Users\\user\\Documents\\NetBeansProjects\\DynamicMemoryPartitioning-master\\DynamicMemoryPartitioning\\src\\dynamicmemorypartitioning\\Haris\\MemoryListTest.txt"));
             while(reader.hasNextLine()) {
                 skip(reader, 1);
                 if(reader.hasNextInt()) {

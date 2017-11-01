@@ -25,6 +25,12 @@ public class MemoryPartition {
         this.occupied=occupied;
     }
     
+    public void setAllValue(int blockSize,int jobNum, boolean occupied) {
+        this.blockSize = blockSize;
+        this.occupied = occupied;
+        this.jobNum = jobNum;
+    }
+    
     public int getJobNum(){
         return this.jobNum;
     }
