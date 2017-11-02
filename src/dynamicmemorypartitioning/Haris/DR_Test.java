@@ -41,7 +41,7 @@ public class DR_Test {
         System.out.println("FIRST FIT ALGORITHM");
         testRun.readJob(Job);
         testRun.readMemory(Partition);
-        testRun.FirstFitAlgo(Job, Partition, WaitQueue);
+        //testRun.FirstFitAlgo(Job, Partition, WaitQueue);
         
         
         System.out.println("BEST FIT ALGORITHM");
@@ -49,23 +49,18 @@ public class DR_Test {
         testRun.readMemory(BFPartition);
         testRun.changeArrangement(BFPartition);
         WaitQueue.clear();
-        testRun.BestFitAlgo(BFJob, BFPartition, BFWaitQueue);
+        //testRun.BestFitAlgo(BFJob, BFPartition, BFWaitQueue);
         
 
         testRun.readJob(DJob);
         WaitQueue.clear();
-        testRun.dynamicFirstFit(DJob, mManager,DPartition, WaitQueue);
+        //testRun.dynamicFirstFit(DJob, mManager,DPartition, WaitQueue);
         
         testRun.readJob(BFDJob);
         testRun.changeBFArrangement(BFDJob);
         WaitQueue.clear();
-        testRun.dynamicFirstFit(BFDJob, mManager, BFDPartition, WaitQueue);
-        
-        testRun.readJob(BFDJob);
-        testRun.changeWFArrangement(BFDJob);
-        WaitQueue.clear();
-        testRun.dynamicFirstFit(BFDJob, mManager, BFDPartition, WaitQueue);
-        
+        //testRun.dynamicFirstFit(BFDJob, mManager, BFDPartition, WaitQueue);
+                
         testRun.readJob(WFDJob);
         testRun.changeWFArrangement(WFDJob);
         WaitQueue.clear();
